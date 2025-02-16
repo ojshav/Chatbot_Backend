@@ -1,0 +1,46 @@
+
+### Scalixity E-commerce Platform Data ###
+
+[Category: Shirts]
+Products: Formal Shirts, Casual Shirts
+Description: Shirts are available in various sizes (S, M, L, XL, XXL) and colors. Ideal for formal and casual wear.
+
+[Category: T-Shirts]
+Products: Graphic Tees, Plain Tees, Polo T-Shirts
+Description: T-shirts are made of cotton fabric, featuring trendy designs and multiple fits. Perfect for casual outings and daily wear.
+
+[Category: Shoes]
+Products: Sports Shoes, Casual Shoes, Formal Shoes, Sneakers
+Description: Our shoe collection includes a wide range of styles for men, women, and kids. Available in various sizes and colors.
+
+[Category: Hoodies]
+Products: Zipper Hoodies, Pullover Hoodies
+Description: Hoodies are comfortable and stylish, ideal for winter and casual outings. Available in different colors and prints.
+
+[Category: Trousers]
+Products: Formal Trousers, Casual Trousers, Joggers, Chinos
+Description: Trousers are designed for comfort and style. Suitable for office wear, casual outings, and workouts.
+
+### General Queries ###
+
+1. What products do you offer?
+   - We offer a wide range of products, including shirts, t-shirts, shoes, hoodies, and trousers.
+
+2. What sizes are available?
+   - Sizes range from S to XXL, depending on the product category.
+
+3. Do you have products for kids?
+   - Yes, we offer shoes and some apparel categories for kids.
+
+4. What colors are available?
+   - Products come in a variety of colors. Specific options depend on the product category.
+
+5. Do you have discounts or sales?
+   - Yes, we frequently run discounts and sales on various product categories. Check the website for current offers.
+
+6. Can I return a product?
+   - Yes, products can be returned within 30 days of purchase if they meet the return criteria.
+
+7. How can I contact customer support?
+   - You can reach our customer support team via email at support@scalixity.com or call us at 1800-123-4567.
+
