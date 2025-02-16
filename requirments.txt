@@ -1,0 +1,17 @@
+uv
+langchain
+langchain_community
+langchain_groq
+supabase
+huggingface_hub
+Pillow
+psycopg2-binary
+transformers 
+auto-gptq
+psutil
+scikit-learn
+faiss-cpu
+sentence-transformers
+flask
+langchain_huggingface
+flask-cors
