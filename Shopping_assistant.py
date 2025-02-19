@@ -5,6 +5,8 @@ import mysql.connector
 from langchain.callbacks.tracers import LangChainTracer
 from langchain.callbacks.manager import CallbackManager
 from langsmith import Client
+from bs4 import BeautifulSoup
+from langchain_groq import ChatGroq
 
 # Load environment variables first
 load_dotenv()
@@ -18,9 +20,11 @@ callback_manager = CallbackManager([tracer])
 
 # Initialize LangSmith client
 client = Client()
-
+os.environ['GROQ_API_KEY'] = os.getenv("GROQ_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
 # Initialize Ollama LLM with callbacks
-llm = Ollama(
+llm = ChatGroq(
+    groq_api_key = groq_api_key,
     model="mistral",
     temperature=0.7,
     callback_manager=callback_manager
@@ -41,7 +45,7 @@ def get_available_categories():
     conn = get_db_connection()
     cur = conn.cursor()
     try:
-        cur.execute("SELECT category_id, name FROM category_translations;")
+        cur.execute("SELECT category_id, name FROM category_translations where category_id <> 1;")
         return {row[0]: row[1] for row in cur.fetchall()}
     except Exception as e:
         print(f"Error fetching categories: {str(e)}")
@@ -112,10 +116,23 @@ def find_products(category_id, size_id, color_id):
         conn.close()
 
 def generate_product_pitch(product_description):
-    """Generate a persuasive pitch for the product using LLM."""
-    prompt = f"Based on the following product description, explain in 2-3 lines why someone should buy this product:\n\n{product_description}\n\nPitch:"
-    response = llm(prompt)
-    return response
+    """Generate a persuasive pitch for the product in a single response."""
+    
+    # Parse the HTML content
+    soup = BeautifulSoup(product_description, "html.parser")
+    cleaned_text = soup.get_text(separator=" ")  # Extract text from HTML
+    
+    # Updated prompt to ensure a single concise response
+    prompt = (f"The following is a product description extracted from an HTML page:\n\n"
+              f"{cleaned_text}\n\n"
+              f"Based on this description, provide a single, concise, and compelling pitch in one sentence. "
+              f"Focus on the key benefit and selling point without repeating.\n\nPitch:")
+    
+    response = llm.invoke(prompt).strip()
+    
+    
+    # If the response contains multiple sentences, extract only the first one
+    return response.split(".")[0] + "." if "." in response else response
 
 def chat_with_assistant():
     categories = get_available_categories()
@@ -163,7 +180,7 @@ def chat_with_assistant():
         else:
             print("\nHere are some products you might like:")
             for product in products:
-                pitch = generate_product_pitch(product['short_description'])
+                pitch = generate_product_pitch(product['description'])
                 print(f"- {product['name']}")
                 print(f"  Why buy this product? {pitch}\n")
         
